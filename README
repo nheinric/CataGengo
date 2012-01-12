@@ -1,7 +1,0 @@
-This is a demo app built on the perl web framework: Catalyst.
-
-It flexes many aspects of the myGengo API and can be used for local (mock) testing as well as sandbox access.
-
-The app is based on the WebService::MyGengo API library and the Catalyst::Model::WebService::MyGengo module.
-
-See INSTALL.html to get started!
