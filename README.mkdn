@@ -1,9 +1,10 @@
 # Description
 
-This document describes initial setup and installation procedure for the
-CataGengo demonstration suite.
+This is a demo app built on the perl web framework: [Catalyst](http://www.catalystframework.org/).
 
-It is built on the [Catalyst](http://www.catalystframework.org/) web framework for perl.
+It flexes many aspects of the myGengo API and can be used for local (mock) testing as well as sandbox access.
+
+The app is based on the [WebService::MyGengo](https://github.com/nheinric/WebService--MyGengo) API library and the [Catalyst::Model::WebService::MyGengo](https://github.com/nheinric/Catalyst--Model--WebService--MyGengo) module.
 
 # Installation
 
