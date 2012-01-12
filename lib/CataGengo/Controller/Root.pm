@@ -62,9 +62,6 @@ Nathaniel Heinrichs
 Copyright (c) 2011, Nathaniel Heinrichs <nheinric-at-cpan.org>.
 All rights reserved.
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
-
 =cut
 
 __PACKAGE__->meta->make_immutable;
