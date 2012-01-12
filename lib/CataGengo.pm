@@ -68,9 +68,12 @@ L<CataGengo::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 
-naruzo
+Nathaniel Heinrichs
 
 =head1 LICENSE
+
+Copyright (c) 2011, Nathaniel Heinrichs <nheinric-at-cpan.org>.
+All rights reserved.
 
 This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
