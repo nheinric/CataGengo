@@ -3,6 +3,7 @@ catagengo_local.conf
 local
 ^a$
 .svnignore
+-[v0-9.]+.tar.gz
 
 # Begin standard Module::Manifest::Skip list:
 
