@@ -1,0 +1,11 @@
+<table class="jobs-table">
+    <thead>
+    [% INCLUDE "widget/job_table/job_header_row.tt" %]
+    </thead>
+
+    <tbody>
+    [% FOREACH job IN jobs %]
+        [% INCLUDE "widget/job_table/job_row.tt" %]
+    [% END -%]
+    </tbody>
+</table>

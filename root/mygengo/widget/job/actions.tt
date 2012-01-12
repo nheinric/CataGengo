@@ -1,0 +1,111 @@
+<script>
+    $(document).ready( function() {
+        var actionRadios    = $('#job-status-radios').find('input[type=radio]');
+        var actions         = $('#job-actions').children('li.job-review-action');
+
+        // If they refreshed the page one might still be selected
+        actionRadios.each( function(id,el) { el.checked = false; } );
+
+        // When clicking an action radio, hide the other actions and show
+        //  only the selected one
+        actionRadios.click( function( event ) {
+            var clickedName = event.target.id;
+            var actionName  = clickedName.replace(/radio/, 'action');
+            actions.each( function ( id, el ) {
+                console.log("Evaluate "+el.id);
+                if ( el.id === actionName ) {
+                    $(el).show();
+                }
+                else {
+                    $(el).hide();
+                }
+            });
+            $('#job-actions').find('input[type=submit]').parent('li').show();
+        });
+    });
+</script>
+<ul id="job-actions">
+    [%# todo Doco is spotty on which actions are available at which status %]
+    [% IF job.is_reviewable %]
+    <li class="job-action even">
+        <form id="status-update-form" method="POST" action="[% c.uri_for( c.controller('MyGengo::Job').action_for('job_put'), [ job.id ] ) %]">
+        <ol id="job-status-radios">
+            <li><label for="revise-radio" class="radio-label">[% loc("Request Revision") %]</label><input type="radio" id="revise-radio" name="action" value="revise"/></li>
+            <li><label for="approve-radio" class="radio-label">[% loc("Approve Job") %]</label><input type="radio" id="approve-radio" name="action" value="approve"/></li>
+            <li><label for="reject-radio" class="radio-label">[% loc("Reject Job") %]</label><input type="radio" id="reject-radio" name="action" value="reject"/></li>
+        </ol>
+    </li>
+    <li class="job-action job-review-action odd" id="revise-action" style="display:none">
+        <hr/>
+        <label for="job-revise-fields">[% loc('Request Revision') %]:</label>
+        <ol "job-revise-fields"><li>
+        <label for="revise-comment" class="required">[% loc("Comment") %]:</label><input type="textbox" id="revise-comment" name="revise-comment"/>
+        </li></ol>
+    </li>
+    <li class="job-action job-review-action odd" id="approve-action" style="display:none">
+        <hr/>
+        <label for="job-approve-fields">[% loc('Approve Job') %]:</label>
+        <ol id="job-approve-fields">
+            <li><label for="approve-rating" class="optional">[% loc("Rating (1-5)") %]</label>
+            <select id="approve-rating" name="approve-rating" >
+                <option value="1">[% loc("Poor") %]</option>
+                <option value="2">[% loc("So-so") %]</option>
+                <option value="3">[% loc("Acceptable") %]</option>
+                <option value="4">[% loc("Good") %]</option>
+                <option value="5">[% loc("Fantastic") %]</option>
+            </select></li>
+            <li><label for="approve-for_translator" class="optional">[% loc("Comments for Translator") %]:</label><input type="textbox" id="approve-for_translator" name="approve-for_translator"/></li>
+            <li><label for="approve-for_mygengo" class="optional">[% loc("Comments for myGengo") %]:</label><input type="textbox" id="approve-for_mygengo" name="approve-for_mygengo"/></li>
+            <li><label for="approve-public" class="optional">[% loc("Public feedback?") %]</label>
+            <select id="approve-public" name="approve-public" >
+                <option value="0" selected="selected">[% loc("No") %]</option>
+                <option value="1">[% loc("Yes") %]</option>
+            </select></li>
+        </ol>
+    </li>
+    <li class="job-action job-review-action odd" id="reject-action" style="display:none">
+        <hr/>
+        <label for="job-reject-fields">[% loc('Reject Job') %]:</label>
+        <ol id="job-reject-fields">
+            <li><label for="reject-reason" class="required">[% loc("Reason") %]:</label>
+            <select id="reject-reason" name="reject-reason" >
+                <option value="quality">[% loc("Quality") %]</option>
+                <option value="incomplete">[% loc("Incomplete") %]</option>
+                <option value="other" selected="selected">[% loc("Other") %]</option>
+            </select></li>
+            <li><label for="reject-comment" class="required">[% loc("Comment") %]:</label><input type="textbox" id="reject-comment" name="reject-comment"/></li>
+            <li><label for="reject-captcha" class="required">[% loc("Captcha") %]:</label><img src="[% job.captcha_url %]" alt="reject-captcha"></img>
+                <input id="reject-captcha" name="reject-captcha" type="text" size="10"/>
+            </li>
+
+            <li><label for="reject-follow_up" class="optional">[% loc("Followup Action") %]:</label>
+            <select id="reject-follow_up" name="reject-follow_up" >
+                <option value="requeue">[% loc("Requeue Job") %]</option>
+                <option value="cancel">[% loc("Cancel Job") %]</option>
+            </select></li>
+        </ol>
+    </li>
+    <li class="job-action submit" style="display:none">
+        <input type="submit" value="[% loc("Update Job Status") %]"></input>
+        </form>
+    </li>
+    [% END -%]
+    [% IF !job.is_canceled %]
+    <hr/>
+    <li class="job-action even">
+        <div id="job-comment-form-container">[% INCLUDE "widget/job/comment-form.tt" %]</div>
+    </li>
+    [% END %]
+    [% UNLESS job.is_approved || job.is_held || job.is_canceled %]
+    <hr/>
+    <li class="job-action destructive">
+        <form id="cancel-job-form" method="POST" action="[% c.uri_for( c.controller('MyGengo::Job').action_for('job_delete'), [ job.id ] ) %]">
+        <input type="submit" value="[% loc("Delete Job") %]" onclick="if ( confirm('[% loc('Are you sure you want to delete this Job?') %]') ) return true; else return false;"></input>
+        </form>
+    </li>
+    [% END -%]
+    <hr/>
+    <li class="job-action submit">
+        <input type="button" id="job-refresh-button" value="[% loc('Refresh Data') %]" onclick="javascript:window.location.href = window.location.href + '?refresh=1';"/>
+    </li>
+</ul>

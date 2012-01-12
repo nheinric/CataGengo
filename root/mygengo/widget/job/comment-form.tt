@@ -1,0 +1,5 @@
+<form id="comment-form" method="POST" action="[% c.uri_for( c.controller('MyGengo::Job').action_for('comment'), [ job.id ] ) %]">
+    <label for="comment_body">[% loc('New Comment') %]</label>
+    <textarea id="comment_body" name="comment_body" rows="5" cols="20" onfocus="javascript:this.value ='';">[% loc("Enter comments here") %]</textarea>
+    <input type="submit" value="[% loc('Add Comment') %]"></input>
+</form>

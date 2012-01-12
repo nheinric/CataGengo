@@ -1,0 +1,6 @@
+<tr class="header">
+    [% FOREACH col IN columns %]
+    [%# Localize the column header names %]
+    <th>[% loc(col) %]</th>
+    [% END -%]
+</tr>
