@@ -1,0 +1,14 @@
+<tr class="job-row" onclick="window.location.href = '[% c.uri_for( c.controller('MyGengo::Job').action_for('job'), [ job.id ] ) %]';">
+    [% FOREACH col IN columns %]
+        [% IF col == "body_src" || col == "body_tgt" %]
+            <td>[% job.$col.substr(0, 47) _ "..." %]</td>
+        [% ELSIF col == "eta" %]
+            [% SET dhm = dhms_for_duration( job.$col ) %]
+            <td>[% dhm.0 %]D, [% dhm.1 %]H, [% dhm.2 %]M</td>
+        [% ELSIF col == "auto_approve" || col == "mt" %]
+            <td>[% job.$col == 1 ? "yes" : "no" %]</td>
+        [% ELSE %]
+            <td>[% job.$col %]</td>
+        [% END %]
+    [% END %]
+</tr>

@@ -1,0 +1,22 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.revisions-table').dataTable( {
+            'bPaginate': false
+            , 'bFilter': false
+            , 'bInfo': false
+            , "aoColumnDefs": [
+                { "aTargets": [2], "sWidth": "70%" }
+                ]
+            } );
+    });
+</script>
+<table class="revisions-table">
+    <thead>
+    <tr><th>[% loc('Revision ID') %]</th><th>[% loc('Created') %]</th><th>[% loc('Body') %]</th></tr>
+    </thead>
+    <tbody>
+    [% FOREACH rev IN job.revisions %]
+    <tr id="revision-[% rev.id %]" class="revision-row"><td>[% rev.id %]</td><td>[% rev.ctime %]</td><td class="revision-body">[% rev.body_tgt %]</td></tr>
+    [% END %]
+    </tbody>
+</table>

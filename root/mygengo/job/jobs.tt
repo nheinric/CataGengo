@@ -1,0 +1,26 @@
+[%# todo Switch to DataTables or something http://datatables.net/ %]
+[% WRAPPER "wrapper/html.tt" WITH
+    title = loc('All Jobs')
+    selected_tab = "jobs"
+%]
+[% DEFAULT columns = ["job_id", "body_src", "lc_src", "lc_tgt", "tier", "status", "ctime", "custom_data"] %]
+<script type="text/javascript">
+    $(document).ready(function () {
+        jobsTable = $('.jobs-table').dataTable( {
+            'bPaginate': false
+            , 'bFilter': true
+            } );
+    });
+</script>
+<div id="jobs_list_body">
+    [% IF jobs.size > 0 -%]
+    <p>[% loc('Click a row to open Job details.') %]</p>
+    <input type="button" id="jobs-refresh-button" value="[% loc('Refresh Data') %]" onclick="javascript:window.location.href = window.location.href + '?refresh=1';"/>
+    [% INCLUDE "widget/job_table.tt" WITH
+        jobs = jobs
+        columns = columns %]
+    [% ELSE -%]
+        [% loc('No jobs found.') %]
+    [% END -%]
+</div>
+[% END %]

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="utf-8" />
+        <meta name="robots" content="index,follow" />
+        <meta name="rating" content="general" />
+		<link rel="stylesheet" type="text/css" media="screen,projection" href="http://d1mvomz2rusyi1.cloudfront.net/4e675a8/css/apps/api_landing.css" />
+		<title>Sandbox | myGengo</title>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script src="http://d1mvomz2rusyi1.cloudfront.net/4e675a8/js/apps/translate/api.js"></script>
+	</head>
+	<body id="sandbox" class="v3 landing en">
+		<header>
+			<section id="user-bar"class="clear-fix">
+				<div class="centered">
+					<div class="col-left">
+						<img width="82" height="24" src="http://d1mvomz2rusyi1.cloudfront.net/4e675a8/images/layout/logo_mygengo_small.png" alt="myGengo Sandbox" id="logo-small" />
+						<nav id="nav-services">
+							<a>Sandbox</a>
+						</nav>
+					</div>
+					<div class="col-right">
+													<nav id="nav-user">
+								<a href="https://sandbox.mygengo.com/auth/form/signup/" >Create an account</a>
+								<a href="https://sandbox.mygengo.com/auth/form/login/" >Log in</a>
+							</nav>
+												<form action="#" id="frm-ui-lang">
+							<label for="mygengo_language_code_select">Language</label>
+                            <select id="mygengo_language_code_select" name="site_language_code_select">
+                                <option id="en" value="http://sandbox.mygengo.com/navigation/set_ui_lc/en/sandbox/"  selected="selected">English</option>
+                                <option id="ja" value="http://sandbox.mygengo.com/navigation/set_ui_lc/ja/sandbox/" >日本語</option>
+                            </select>
+						</form>
+					</div>
+				</div>
+			</section>
+
+			
+		</header>
+		<div id="landing-top-container">
+			<section id="landing-top" class="centered clear-fix">
+				<header>
+					<h1><img src="http://d1mvomz2rusyi1.cloudfront.net/4e675a8/images/apps/sandbox/sandbox_home_title_en.png" alt="Sandbox" id="service-logo" height="66" width="689" /></h1>
+					<h2 id="tagline">The testing area for your API code.</h2>
+					<p>The sandbox is a free testing environment that is designed to mimic the live site as closely as possible, so you can test your code. Check out our <a href="http://mygengo.com/services/api/dev-docs/getting-started">developer documentation</a> for more info.</p>
+				</header>
+			</section>
+		</div>
+		<section id="main-content" class="centered">
+			<article id="sandbox-home-copy" class="container">
+				<div class="box">
+					<h3>What’s different about the sandbox?</h3>
+					<ul>
+						<li>You can add free credits to your account at will, for testing.</li>
+						<li>You can trigger the "completion" of your translation jobs (i.e. be a faux translator) so that you can test what your code does in response.</li>
+						<li>Additional controls for you to manually trigger job status changes and other actions, so that you can test your callbacks.</li>
+						<li>The sandbox jobs database may occasionally be wiped clean to prepare it for new features. As such you should not rely on the sandbox for permanent storage.</li>
+					</ul>
+					<h3>How to use the sandbox:</h3>
+					<ul class="numbers">
+						<li>Check out the <a href="http://mygengo.com/services/api/dev-docs/">developer documentation</a>.</li>
+						<li>Create your sandbox account</li>
+						<li><a href="http://sandbox.mygengo.com/auth/form/login" rel="login">Log in</a> and visit your Account API Keys page to generate a set of sandbox API keys.</li>
+						<li>Test your app, using http://api.sandbox.mygengo.com/v1/ as the base call URL.</li>
+						<li>Ready to deploy? Head over to the live <a href="http://mygengo.com">mygengo.com</a> site. Create a full user account, generate a set of live API keys - and <br />remember to paste them into your app.</li>
+					</ul>
+                    					<div id="get-ready" class="box blue">
+						<p><strong>Ready? Get started on the sandbox.</strong></p>
+						<a href="http://sandbox.mygengo.com/auth/form/signup/" class="btn btn-large orange" rel="register">Create your sandbox account</a>
+					</div>
+                    					<p><strong>Looking for the live site? Please visit:</strong> <a href="http://mygengo.com">http://mygengo.com</a></p>
+				</div>
+			</article>
+		</section>
+
+		<div id="footer">
+		    <div id="footer_inner">
+		        <div id="footer_flashdata">&nbsp; </div>
+		    </div>
+		</div>
+	</body>
+</html>
