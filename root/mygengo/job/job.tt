@@ -1,0 +1,79 @@
+[%# todo Switch to DataTables or something http://datatables.net/ %]
+[% WRAPPER "wrapper/html.tt" WITH
+    title = loc('Job Details') _ ' - ' _ job.id
+    selected_tab = "jobs"
+%]
+[% DEFAULT columns = ["ctime", "lc_src", "lc_tgt", "unit_count", "tier", "credits", "status", "eta", "auto_approve", "mt", "custom_data"] %]
+<script type="text/javascript">
+    var innerLayout;
+    $(document).ready(function () {
+        innerLayout = $('.ui-layout-center').layout({
+            default: {
+                applyDefaultStyles: true
+                , autoResize: true
+                }
+            , west: {
+                paneSelector: "#job-details-sidebar"
+                , resizable: false
+                , spacing_open: 0
+                }
+            , center: {
+                paneSelector: "#job-details-main"
+                }
+            });
+        // outerLayout needs to accommodate us
+        outerLayout.resizeAll();
+        innerLayout.resizeAll();
+
+        jobsTable = $('.jobs-table').dataTable( {
+            'bPaginate': false
+            , 'bFilter': false
+            , 'bInfo': false
+            } );
+    });
+</script>
+<div id="job-details-container">
+    <div id="job-details-sidebar" class="ui-layout-pane-inner ui-layout-pane-inner-west">
+        <div class="ui-layout-content">
+            <div id="job-title-container"><label for="job-title-container" class="section-head">[% loc("Job") %]: [% job.id %] - [% job.status FILTER ucfirst %]</label></div>
+            <div id="job-actions-container">[% INCLUDE "widget/job/actions.tt" %]</div>
+        </div>
+    </div>
+    <div id="job-details-main" class="ui-layout-pane-inner ui-layout-pane-inner-center">
+        <div class="ui-layout-content">
+            <label for="job_table-container" class="section-head">[% loc("Job Details") %]</label>
+            <div id="job_table-container">
+            [% INCLUDE "widget/job_table.tt" WITH
+                columns = columns
+                jobs = [job]
+            %]
+            </div>
+            <hr/>
+            <label for="job-body-list" class="section-head">[% loc("Job Body") %]</label>
+            [% IF job.preview_url && 0 %]
+                <label for="job-preview-url">[% loc('Preview Job here') %]:</label><a id="job-preview-url" href="[% job.preview_url %]">[% job.preview_url %]</a>
+            [% END %]
+            <dl id="job-body-list">
+            <div id="body_src-container" style="float:left;">
+            <dt><label for="body_src-box">[% loc('Body Source') %]</label></dt>
+            <dd><textarea id="body_src-box" rows="10" cols="40">[% job.body_src %]</textarea></dd>
+            </div>
+            <div id="body_tgt-container">
+            <dt><label for="body_tgt-box">[% loc('Body Target') %]</label></dt>
+            <dd><textarea id="body_tgt-box" rows="10" cols="40" >[% IF job.body_tgt %][% job.body_tgt %][% ELSE %]<[% loc('The translation has not been completed.') %]>[% END %]</textarea></dd>
+            </div>
+            </dl>
+            <hr/>
+            <label for="job-comments-container" class="section-head">[% loc("Comments") %]</label>
+            <div id="job-comments-container">[% INCLUDE "widget/job/comments-table.tt" %]</div>
+            [% IF job.is_approved %]
+            <hr/>
+            <label for="job-revisions-container" class="section-head">[% loc("Revisions") %]</label>
+            <div id="job-revisions-container">[% INCLUDE "widget/job/revisions-table.tt" %]</div>
+            [% END %]
+            <br/>
+        </div>
+    </div>
+</div>
+<br/>
+[% END %]

@@ -1,0 +1,22 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.comments-table').dataTable( {
+            'bPaginate': false
+            , 'bFilter': false
+            , 'bInfo': false
+            , "aoColumnDefs": [
+                { "aTargets": [2], "sWidth": "70%" }
+                ]
+            } );
+    });
+</script>
+<table class="comments-table">
+    <thead>
+    <tr><th>[% loc('Created') %]</th><th>[% loc('Author') %]</th><th>[% loc('Body') %]</th></tr>
+    </thead>
+    <tbody>
+    [% FOREACH comment IN job.comments %]
+    <tr id="comment-[% loop.index() %]" class="comment-row"><td>[% comment.ctime %]</td><td>[% comment.author %]</td><td class="comment-body">[% comment.body %]</td></tr>
+    [% END %]
+    </tbody>
+</table>

@@ -1,0 +1,109 @@
+[%# todo Switch to DataTables or something http://datatables.net/ %]
+[% WRAPPER "wrapper/html.tt" WITH
+    title = loc('New Job')
+    selected_tab = "new_job"
+%]
+<script type="text/javascript">
+    var innerLayout;
+    $(document).ready(function () {
+        innerLayout = $('.ui-layout-center').layout({
+            default: {
+                applyDefaultStyles: true
+                , autoResize: true
+                }
+            , west: {
+                paneSelector: "#new-job-sidebar"
+                , resizable:false
+                , size:"30%"
+                , spacing_open: 0
+                }
+            , center: {
+                paneSelector: "#new-job-main"
+                , resizable:false
+                }
+            });
+        // outerLayout needs to accommodate us
+        outerLayout.resizeAll();
+        innerLayout.resizeAll();
+    });
+</script>
+<form id="new-job-form" method="POST" action="[% c.uri_for( c.controller.action_for('new') ) %]">
+<div id="new-job-sidebar" class="ui-layout-pane-inner ui-layout-pane-inner-west">
+    <div class="ui-layout-content">
+        <label for="new-job-options">* Required fields are in <b>bold</b></label>
+        <ul id="new-job-options">
+            <li>
+                <label for="language_pair-field" class="required">* [% loc("Language") %]</label>
+                <select id="language_pair-field" name="language_pair">
+                    [%# todo Quick n dirty. Use JavaScript to make user-friendly. %]
+                    [% FOREACH pair IN language_pairs %]
+                    [% SET val = pair.lc_src _ '::' _ pair.lc_tgt _ '::' _ pair.tier %]
+                    [% SET display = loc(pair.lc_src) _ ' -> ' _ loc(pair.lc_tgt) _ ', ' _ ucfirst(pair.tier) _ ', ' _ 'USD $' _ pair.unit_price _ '/' _ loc("unit") %]
+                    [%# todo Make a model method %]
+                    <option value="[% val %]"[% IF job && job.lc_src == pair.lc_src && job.lc_tgt == pair.lc_tgt and job.tier == pair.tier %] selected="selected"[% END %]>[% display %]</option>
+                    [% END %]
+                </select>
+            </li>
+            <li>
+                <ul id="translation-options">
+                <li>
+                <!-- Hull breach on deck 9! -->
+                <label for="force-field" class="optional">[% loc("Force a new translation?") %]</label>
+                <select id="force-field" name="force" >
+                    <option value="0" [% IF !job || (job && !job.force) %]selected="selected"[% END %]>[% loc("No") %]</option>
+                    <option value="1" [% IF job && job.force %]selected="selected"[% END %]>[% loc("Yes") %]</option>
+                </select>
+                </li>
+                <li>
+                <label for="use_preferred-field" class="optional">[% loc("Use preferred translators?") %]</label>
+                <select id="use_preferred-field" name="use_preferred" >
+                    <option value="0" [% IF !job || (job && !job.use_preferred) %]selected="selected"[% END %]>[% loc("No") %]</option>
+                    <option value="1" [% IF job && job.use_preferred%]selected="selected"[% END %]>[% loc("Yes") %]</option>
+                </select>
+                </li>
+                <li>
+                <label for="auto_approve-field" class="optional">[% loc("Auto-approve translation?") %]</label>
+                <select id="auto_approve-field" name="auto_approve" >
+                    <option value="0" [% IF !job || (job && !job.auto_approve) %]selected="selected"[% END %]>[% loc("No") %]</option>
+                    <option value="1" [% IF job && job.auto_approve %]selected="selected"[% END %]>[% loc("Yes") %]</option>
+                </select>
+                </li>
+                </ul>
+            </li>
+            <li class="job-action submit">
+                <input type="hidden" name="estimate_only" id="estimate_only" value="0"></input>
+                <input id="new-job-form-estimate" type="submit" value="[% loc('Estimate Cost') %]" onclick="$(this).siblings('#estimate_only').val(1); $(this).parents('form').submit();"></input>
+                [% IF job && job.credits %]
+                <ol class="job-cost-estimate">
+                <li>[% loc('Credits') %]: [% job.credits %]</li>
+                <li>[% loc('Unit Count') %]: [% job.unit_count %]</li>
+                </ol>
+                [% END %]
+            </li>
+            <li class="job-action submit">
+                <input id="new-job-form-submit" type="submit" value="[% loc('Create Job') %]"></input>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="new-job-main" class="ui-layout-pane-inner ui-layout-pane-inner-center">
+    <div class="ui-layout-content">
+        </br>
+        <ul id="new-job-fields">
+        <li>
+                <label for="body_src-field" class="required">* [% loc("Text to translate") %]:</label>
+                <textarea id="body_src-field" name="body_src" rows="10" cols="40">[% IF job %][% job.body_src %][% END %]</textarea>
+        </li>
+        <li>
+                <label for="comment-field" class="optional">[% loc("Note to translator") %]:</label>
+                <textarea id="comment-field" name="comment" rows="10" cols="40">[% IF job %][% job.comment %][% END %]</textarea>
+        </li>
+        <li>
+                <label for="custom_data-field" class="optional">[% loc("Custom data") %]:</label>
+                <textarea id="custom_data-field" name="custom_data" rows="10" cols="40">[% IF job %][% job.custom_data %][% END %]</textarea>
+        </li>
+        </ul>
+    </div>
+</div>
+</form>
+[% END %]

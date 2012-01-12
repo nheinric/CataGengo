@@ -1,0 +1,7 @@
+[% IF user_messages.length -%]
+    <ol id="user-messages">
+    [% FOREACH msg IN user_messages -%]
+        <li class="message [% msg.class -%]">[% loc(msg.message) -%]</li>
+    [% END -%]
+    </ol>
+[% END -%]

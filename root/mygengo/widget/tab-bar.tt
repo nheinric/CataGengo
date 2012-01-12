@@ -1,0 +1,8 @@
+<ul id="tab-bar">
+    <li><a href="[% c.uri_for( c.controller('MyGengo::Account').action_for('view') ) %]" id="account-view-tab" [% IF selected_tab == 'account' %]class="selected"[% END %]>[% loc('Account') %]</a></li>
+    <li><a href="[% c.uri_for( c.controller('MyGengo::Job').action_for('jobs') ) %]" id="jobs-tab" [% IF selected_tab == 'jobs' %]class="selected"[% END %]>[% loc('Jobs') %]</a></li>
+    <li><a href="[% c.uri_for( c.controller('MyGengo::Job').action_for('new_job') ) %]" id="new_job-tab" [% IF selected_tab == 'new_job' %]class="selected"[% END %]>[% loc('Create a New Job') %]</a></li>
+    [% IF 0 %]
+    <li><a href="#" onclick="resizeLayout(); return false;">[% loc('Resize Layout') %]</a></li>
+    [% END %]
+</ul>

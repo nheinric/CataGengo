@@ -1,0 +1,138 @@
+<h1>Description</h1>
+
+<p>This document describes initial setup and installation procedure for the
+CataGengo demonstration suite.</p>
+
+<p>It is built on the <a href="http://www.catalystframework.org/">Catalyst</a> web framework for perl.</p>
+
+<h1>Installation</h1>
+
+<h2>Assumptions</h2>
+
+<ol>
+<li>You have access to a browser supported by <a href="http://docs.jquery.com/Browser_Compatibility">jQuery</a></li>
+<li>You are installing on a UNIX-like environment</li>
+<li>You have perl 5.10.1+ installed</li>
+<li>You are using <a href="http://search.cpan.org/~apeiron/local-lib-1.008004/lib/local/lib.pm">local::lib</a>, or you don't mind if Catalyst installs a bunch of perl modules on your system.</li>
+<li>If you have questions about any of the above, drop me a line!</li>
+</ol>
+
+<h2>Steps</h2>
+
+<p>In all steps below, if you are asked whether to install a dependency, always answer <em>yes</em></p>
+
+<ol>
+<li>Install cpanminus
+<ul>
+<li>This is a great package installer that should make the rest of the installation much smoother</li>
+<li><code>cpan -i App::cpanminus</code></li>
+</ul></li>
+<li>Download and install <a href="https://github.com/downloads/nheinric/WebService--MyGengo/WebService-MyGengo-0.010.tar.gz">WebService::MyGengo</a>
+<ul>
+<li>At the time of this writing, the module is not yet on the CPAN, so you must install it by hand</li>
+<li><code>cd &lt;the module directory&gt; &amp;&amp; cpanm --installdeps .</code></li>
+<li><code>perl Makefile.PL &amp;&amp; make &amp;&amp; make test &amp;&amp; sudo make install</code></li>
+</ul></li>
+<li>Download and install <a href="https://github.com/downloads/nheinric/Catalyst--Model--WebService--MyGengo/Catalyst-Model-WebService-MyGengo-0.001.tar.gz">Catalyst::Model::WebService::MyGengo</a>
+<ul>
+<li>At the time of this writing, the module is not yet on the CPAN, so you must install it by hand</li>
+<li><code>cd &lt;the module directory&gt; &amp;&amp; cpanm --installdeps .</code></li>
+<li><code>perl Makefile.PL &amp;&amp; make &amp;&amp; make test &amp;&amp; sudo make install</code></li>
+</ul></li>
+<li>Download and install CataGengo
+<ul>
+<li><strong>NOTE: <code>make install</code> is not necessary!</strong></li>
+<li><code>cd CataGengo &amp;&amp; cpanm --installdeps .</code></li>
+<li><code>perl Makefile.PL &amp;&amp; make &amp;&amp; make test</code></li>
+</ul></li>
+<li>Done!</li>
+</ol>
+
+<h1>Running the App</h1>
+
+<h2>Mock Mode</h2>
+
+<p>In mock mode, all requests will be handled by a local object that mimics the action of the sandbox.</p>
+
+<p>No requests to the real sandbox will be made, so you can test to your heart's content without worrying about throttling.</p>
+
+<p>However, if you stop/start the server, <strong>all of your test Jobs will vanish</strong>.</p>
+
+<ol>
+<li>Run the local server:
+<ul>
+<li><code>CATAGENGO_HOME=. ./script/catagengo_server.pl -d</code></li>
+</ul></li>
+<li>Open <a href="http://127.0.0.1:3000/mygengo">http://127.0.0.1:3000/mygengo</a> in your browser of choice</li>
+<li>Click the 'Create a New Job' tab to make a Job</li>
+<li>Test to your heart's content!
+<ul>
+<li>Note: your credits in the 'Account' tab will not decrease. This is considered a feature, as you can test forever!</li>
+</ul></li>
+</ol>
+
+<h2>Sandbox Mode</h2>
+
+<p>If you make a lot of requests the sandbox may begin to throttle you (which manifests as all requests resulting in an "authentication didn't pass" error.)</p>
+
+<p>If this happens you'll need to wait awhile (not sure how long...) until you can test again.</p>
+
+<ol>
+<li><p>Open catagengo.conf. It will look like the following:</p>
+
+<pre><code>&lt;Model::MyGengo&gt;
+#    class           WebService::MyGengo::Client
+    class           CataGengo::Test::Util::Client
+    public_key      pubkey
+    private_key     privkey
+    use_sandbox     1
+&lt;/Model::MyGengo&gt;
+</code></pre></li>
+<li><p>Swap the commented <code>class</code> lines so they look like this:</p>
+
+<pre><code>&lt;Model::MyGengo&gt;
+    class           WebService::MyGengo::Client
+#    class           CataGengo::Test::Util::Client
+    public_key      pubkey
+    private_key     privkey
+    use_sandbox     1
+&lt;/Model::MyGengo&gt;
+</code></pre></li>
+<li>Replace 'pubkey' and 'privkey' with your sandbox API public and private keys
+<ul>
+<li>If you have any "#" characters in your keys, you must escape them with a backslash: \#</li>
+</ul></li>
+<li>Save the file and run the local server:
+<ul>
+<li><code>CATAGENGO_HOME=. ./script/catagengo_server.pl -d</code></li>
+</ul></li>
+<li>Open <a href="http://127.0.0.1:3000/mygengo">http://127.0.0.1:3000/mygengo</a> in your browser of choice</li>
+<li>Click the 'Jobs' tab to view your Jobs in the sandbox
+<ul>
+<li>If you have a lot of Jobs, the page will take awhile to load the first time</li>
+<li>Subsequent loads will be quicker because the Job list is cached internally</li>
+<li>If you update a Job in the sandbox, open the Job list or Job details click the 'Refresh Data' button to refresh data from the API</li>
+</ul></li>
+</ol>
+
+<h2>Live Mode</h2>
+
+<p>Live mode works exactly like Sandbox mode, only you'll be interacting with the production myGengo server.</p>
+
+<p><strong>YOU WILL BE CHARGED FOR NEW JOBS CREATED IN THIS MODE!</strong></p>
+
+<ol>
+<li>Open catagengo.conf again and:
+<ol>
+<li>Change your public/private keys to your production API keys</li>
+<li>Change <code>use_sandbox</code> to 0</li>
+</ol></li>
+<li>Save the file and run the local server:
+<ul>
+<li><code>CATAGENGO_HOME=. ./script/catagengo_server.pl -d</code></li>
+</ul></li>
+</ol>
+
+<h1>Support</h1>
+
+<p>Feel free to contact me at nheinric-at-cpan.org if you hit any snags!</p>
