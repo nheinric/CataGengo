@@ -1,0 +1,22 @@
+[% WRAPPER "wrapper/html.tt" WITH
+    title = loc('Account')
+    selected_tab = "account"
+%]
+<div id="account_info_body">
+    <div id="account_info_balance">
+        <dl class="account_info">
+            <dt>[% loc('Balance') -%]:</dt>
+            <dd>[% account.credits -%] [% loc('Credits') -%]</dd>
+        </dl>
+    </div>
+    <div id="account_info_stats">
+        <dl class="account_info">
+            <dt>[% loc('Credits Spent') -%]:</dt>
+            <dd>[% account.credits_spent -%] [% loc('Credits') -%]</dd>
+
+            <dt>[% loc('User Since') -%]:</dt>
+            <dd>[% account.user_since.strftime('%F %H:%M:%S %Z') -%]</dd>
+        </dl>
+    </div>
+</div>
+[% END %]

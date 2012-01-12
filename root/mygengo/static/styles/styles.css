@@ -1,0 +1,191 @@
+/* Misc */
+a {
+    text-decoration: none;
+}
+
+label {
+    display: block;
+}
+
+label.required {
+    font-weight: bold;
+}
+
+label.radio-label {
+    float: left;
+}
+
+label.section-head {
+    text-align: center;
+    font-weight: bold;
+    background: lightgrey;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+ul {
+    padding: 0;
+}
+
+ol {
+    padding: 0;
+}
+
+tr {
+    text-align: center;
+}
+
+#footer-container > #copyright {
+    padding-left: 10px;
+}
+
+/* Job actions */
+li.job-action.even {
+    background: lightblue;
+}
+
+li.job-action.odd {
+    background: lightsteelblue;
+}
+
+li.job-action.submit {
+    background: lightskyblue;
+}
+
+li.job-action.destructive {
+    background: indianred;
+}
+
+/* jQuery UI Layout stuff */
+#container {
+    height:     100%;
+    width:      100%;
+    min-width:  750px;
+}
+
+.ui-layout-pane-north {
+    border-bottom: 0px !important;
+}
+
+.ui-layout-pane-inner {
+    /*position: relative !important;
+    */
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.ui-layout-content {
+    /* Allow panes to scroll */
+    overflow: auto;
+    border-top: 0 !important;
+    padding: 0px !important;
+}
+
+.ui-layout-center  {
+    /* Allow panes to scroll */
+    /*overflow:auto !important;*/
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+    /*margin:0px;
+    padding:0px;*/
+}
+
+.ui-layout-south {
+    background: none repeat scroll 0 0 #E5F5FA !important;
+}
+
+div#jobs_list_body {
+    padding: 10px;
+}
+
+/* Tabs */
+#tab-container {
+    padding: 0 0 0 10px !important;
+    background: #E5F5FA !important;
+}
+
+#tab-bar li a:hover, #tab-bar li a.selected {
+    background: none repeat scroll 0 0 white;
+    color: #39B3DB;
+    text-decoration: none;
+}
+#tab-bar li a {
+    background: none repeat scroll 0 0 #30ACD6;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: white;
+    display: block;
+    font-size: 17px;
+    height: 25px;
+    margin-left: 2px;
+    padding: 9px 8px 2px;
+    text-decoration: none;
+}
+
+#tab-bar li {
+    background: none repeat scroll 0 0 #E5F5FA;
+    float: left;
+    list-style: none outside none;
+}
+
+/* DataTables */
+table thead th {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 3px 18px 3px 10px;
+}
+
+.sorting {
+    background: url("../images/sort_both.png") no-repeat scroll right center transparent;
+}
+
+.sorting_asc {
+    background: url("../images/sort_asc.png") no-repeat scroll right center transparent;
+}
+
+.sorting_asc_disabled {
+	background: url('../images/sort_asc_disabled.png') no-repeat center right;
+}
+
+.sorting_desc {
+	background: url('../images/sort_desc.png') no-repeat center right;
+}
+
+.sorting_desc_disabled {
+	background: url('../images/sort_desc_disabled.png') no-repeat center right;
+}
+
+tr.odd {
+    background-color: cornsilk;
+}
+
+tr.even {
+    background-color: lemonchiffon;
+}
+
+tr.job-row[onclick*="http"] {
+    cursor: pointer;
+}
+
+table.comments-table {
+    /* Center the table in it's container */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td.comment-body {
+    text-align: left;
+}
+
+table.revisions-table {
+    /* Center the table in it's container */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td.revision-body {
+    text-align: left;
+}
