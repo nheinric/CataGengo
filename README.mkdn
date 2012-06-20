@@ -16,23 +16,16 @@ The app is based on the [WebService::MyGengo](https://github.com/nheinric/WebSer
  * If you have questions about any of the above, drop me a line!
 
 ## Steps
-In all steps below, if you are asked whether to install a dependency, always answer _yes_
 
  1. Install cpanminus
    * This is a great package installer that should make the rest of the installation much smoother
+   * If you are asked whether to install a dependency, always answer _yes_
    * `cpan -i App::cpanminus`
- 1. Download and install [WebService::MyGengo](https://github.com/downloads/nheinric/WebService--MyGengo/WebService-MyGengo-0.010.tar.gz)
-   * At the time of this writing, the module is not yet on the CPAN, so you must install it by hand
-   * `cd <the module directory> && cpanm --installdeps .`
-   * `perl Makefile.PL && make && make test && sudo make install`
- 1. Download and install [Catalyst::Model::WebService::MyGengo](https://github.com/downloads/nheinric/Catalyst--Model--WebService--MyGengo/Catalyst-Model-WebService-MyGengo-0.001.tar.gz)
-   * At the time of this writing, the module is not yet on the CPAN, so you must install it by hand
-   * `cd <the module directory> && cpanm --installdeps .`
-   * `perl Makefile.PL && make && make test && sudo make install`
  1. Download and install CataGengo
-   * **NOTE: `make install` is not necessary!**
-   * `cd CataGengo && cpanm --installdeps .`
+   * `wget -O - 'https://github.com/nheinric/CataGengo/tarball/master' | tar xz -`
+   * `cd nheinric-* && cpanm --installdeps .`
    * `perl Makefile.PL && make && make test`
+   * **NOTE: `make install` is not necessary!**
  1. Done!
 
 # Running the App
